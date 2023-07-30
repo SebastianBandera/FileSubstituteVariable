@@ -2,8 +2,12 @@ package sustvar.main.modules;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
 import sustvar.utils.StringUtils;
@@ -31,7 +35,15 @@ public class CommandExecutor {
 		
 		StreamGobbler streamGobbler = new StreamGobbler(pro.getInputStream(), show);
 		show.accept(StringUtils.concat("Obteniendo salida del comando: ", cmd));
-		executorService.submit(streamGobbler);		
+		Future<?> future = executorService.submit(streamGobbler);
+		
+		try {
+			future.get(5, TimeUnit.HOURS);
+		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+			show.accept("ERROR: " + e.getMessage());
+		} finally {
+			executorService.shutdown();
+		}
 	}
 
 	public void setShow(Consumer<String> show) {
