@@ -18,10 +18,12 @@ public class FileVarSubstitutor {
 
 	private final List<File> files;
 	private final File config;
+        private final File elementToUse;
 	
-	public FileVarSubstitutor(List<File> files, File config) {
+	public FileVarSubstitutor(List<File> files, File config, File elementToUse) {
 		this.files  = files;
 		this.config = config;
+                this.elementToUse = elementToUse;
 	}
 
 	public void run() throws IOException {
@@ -74,7 +76,7 @@ public class FileVarSubstitutor {
 			 })
 			 .collect(Collectors.toMap(item -> item[0], item -> item[1]));
 		
-		
+		configs.put("targetDir", elementToUse.getAbsolutePath());
 		
 		return configs;
 	}

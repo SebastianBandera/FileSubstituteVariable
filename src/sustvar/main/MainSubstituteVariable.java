@@ -61,7 +61,7 @@ public class MainSubstituteVariable implements Runnable {
 		
 		List<File> files = fileManager.getFiles(elementToUse, params.isRecursive());
 		
-		FileVarSubstitutor fileVarSubtitutor = new FileVarSubstitutor(files, params.getConfig());
+		FileVarSubstitutor fileVarSubtitutor = new FileVarSubstitutor(files, params.getConfig(), elementToUse);
 		
 		fileVarSubtitutor.run();
 		
