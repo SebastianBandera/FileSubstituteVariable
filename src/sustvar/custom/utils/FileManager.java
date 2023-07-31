@@ -76,7 +76,7 @@ public class FileManager {
 
 	private void tryCopy(Path source, Path dest) {
 	    try {
-	        Files.copy(source, dest);
+	        Files.copy(source, dest, StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING);
 	    } catch (Exception e) {}
 	}
 	
