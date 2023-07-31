@@ -74,7 +74,7 @@ public class MainSubstituteVariable implements Runnable {
 	private File backupTarget(File target, boolean replaceBackup) throws Exception {
 		int maxTry = Integer.MAX_VALUE;
 		File parent = target.getParentFile();
-		if (parent == null) throw new Exception("No se encontrÛ la ruta padre al directorio seleccionado.");
+		if (parent == null) throw new Exception("No se encontr√≥ la ruta padre al directorio seleccionado.");
 		
 		File finalFile;
 		
@@ -108,7 +108,7 @@ public class MainSubstituteVariable implements Runnable {
 		Map<Optional<String>, List<String>> paramsMapped = params.stream().collect(Collectors.groupingBy(input -> {
 			final String inputLower = input.toLowerCase();
 			
-			//Para evitar seguir evaluado si ya encontrÛ cual es el par·metro que llegÛ, se usa 'coalesce'
+			//Para evitar seguir evaluado si ya encontr√≥ cual es el par√°metro que lleg√≥, se usa 'coalesce'
 			String result = General.coalesce(() -> evaluateParam(StartParameters.PARAM_TARGET, inputLower),
 					 						 () -> evaluateParam(StartParameters.PARAM_CONFIG_FILE, inputLower),
 											 () -> evaluateParam(StartParameters.PARAM_RECURSIVE, inputLower),
@@ -155,7 +155,7 @@ public class MainSubstituteVariable implements Runnable {
 	}
 	
 	/**
-	 * Extrae el valor del parametro y realiza una tarea con dicho par·metro
+	 * Extrae el valor del par√°metro y realiza una tarea con dicho par√°metro
 	 * @param paramsMapped
 	 * @param paramName
 	 * @param task
@@ -171,7 +171,7 @@ public class MainSubstituteVariable implements Runnable {
 	}
 
 	/**
-	 * Revisa que un par·metro no haya llegado m·s de una vez
+	 * Revisa que un par√°metro no haya llegado m√°s de una vez
 	 * @param paramsMapped
 	 * @throws Exception
 	 */
@@ -180,7 +180,7 @@ public class MainSubstituteVariable implements Runnable {
 		
 		commonProcessMap(paramsMapped, (key, list) -> {
 			if (list != null && list.size() > 1) {
-				errorCatcher.set(new Exception(StringUtils.concat("No se admite m·s de un valor para el par·metro ", key.get())));
+				errorCatcher.set(new Exception(StringUtils.concat("No se admite m√°s de un valor para el par√°metro ", key.get())));
 			}
 		});
 		
@@ -190,7 +190,7 @@ public class MainSubstituteVariable implements Runnable {
 	}
 
 	/**
-	 * Ajusta los valores de los par·metros para conservar sÛlo su valor y no su nombre. Dado que el formato es -nombre:vallor
+	 * Ajusta los valores de los par√°metros para conservar s√≥lo su valor y no su nombre. Dado que el formato es -nombre:valor
 	 * @param paramsMapped
 	 * @throws Exception
 	 */
@@ -210,7 +210,7 @@ public class MainSubstituteVariable implements Runnable {
 		
 		commonProcessMap(paramsMapped, (key, list) -> {
 			if(!print.get()) {
-				show.accept("Par·metros reconocidos");
+				show.accept("Par√°metros reconocidos");
 				print.set(true);
 			}
 			

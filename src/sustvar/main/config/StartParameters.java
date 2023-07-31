@@ -28,11 +28,11 @@ public class StartParameters {
 	}
 	
 	public void validate() throws Exception {
-		if (target == null) throw new Exception("Falta el parámetro " + PARAM_TARGET);
-		if (config == null) throw new Exception("Falta el parámetro " + PARAM_CONFIG_FILE);
+		if (target == null) throw new Exception("Falta el parÃ¡metro " + PARAM_TARGET);
+		if (config == null) throw new Exception("Falta el parÃ¡metro " + PARAM_CONFIG_FILE);
 		
-		if (!target.isDirectory() && !target.isFile()) throw new Exception(StringUtils.concat("El parámetro ", PARAM_TARGET, " debe ser un directorio o un archivo."));
-		if (!config.isFile()) throw new Exception(StringUtils.concat("El parámetro ", PARAM_CONFIG_FILE, " debe ser un archivo."));
+		if (!target.isDirectory() && !target.isFile()) throw new Exception(StringUtils.concat("El parÃ¡metro ", PARAM_TARGET, " debe ser un directorio o un archivo."));
+		if (!config.isFile()) throw new Exception(StringUtils.concat("El parÃ¡metro ", PARAM_CONFIG_FILE, " debe ser un archivo."));
 	}
 
 	public File getTarget() {
