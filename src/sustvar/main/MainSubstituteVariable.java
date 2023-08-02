@@ -61,14 +61,16 @@ public class MainSubstituteVariable implements Runnable {
 		
 		List<File> files = fileManager.getFiles(elementToUse, params.isRecursive());
 		
-		FileVarSubstitutor fileVarSubtitutor = new FileVarSubstitutor(files, params.getConfig(), elementToUse);
+		FileVarSubstitutor fileVarSubtitutor = new FileVarSubstitutor(files, params.getConfig(), elementToUse, show);
 		
 		fileVarSubtitutor.run();
 		
-		CommandExecutor cmdExe = new CommandExecutor(params.getCmd(), elementToUse);
+                if(params.getCmd()!=null && !params.getCmd().trim().isEmpty()) {
+                    CommandExecutor cmdExe = new CommandExecutor(params.getCmd(), elementToUse);
 		
-		cmdExe.setShow(show);
-		cmdExe.run();
+                    cmdExe.setShow(show);
+                    cmdExe.run();
+                }
 	}
 
 	private File backupTarget(File target, boolean replaceBackup) throws Exception {

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import sustvar.utils.StringUtils;
@@ -19,11 +20,13 @@ public class FileVarSubstitutor {
 	private final List<File> files;
 	private final File config;
         private final File elementToUse;
+        private final Consumer<String> show;
 	
-	public FileVarSubstitutor(List<File> files, File config, File elementToUse) {
+	public FileVarSubstitutor(List<File> files, File config, File elementToUse, Consumer<String> show) {
 		this.files  = files;
 		this.config = config;
                 this.elementToUse = elementToUse;
+                this.show = show;
 	}
 
 	public void run() throws IOException {
@@ -77,6 +80,26 @@ public class FileVarSubstitutor {
 			 .collect(Collectors.toMap(item -> item[0], item -> item[1]));
 		
 		configs.put("targetDir", elementToUse.getAbsolutePath());
+                
+                Iterator<Entry<String, String>> iter = configs.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Entry<String, String> item = iter.next();
+                    
+                    if(item.getKey()!=null) {
+                        StringBuilder text = new StringBuilder();
+                        text.append(item.getKey());
+                        text.append(":");
+                        if(item.getKey().toLowerCase().contains("pass")) {
+                            text.append("****");
+                        } else {
+                            text.append(item.getValue());
+                        }
+
+                        show.accept(text.toString());
+                    }
+                }
+                
+                show.accept("");
 		
 		return configs;
 	}
