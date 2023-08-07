@@ -28,6 +28,7 @@ public class CommandExecutor {
 		String system = System.getProperty("os.name").toLowerCase();
 		
 		show.accept(StringUtils.concat("Sistema: ", system));
+		show.accept(StringUtils.concat("Dir: ", dir.toString()));
 		
 		Process pro = Runtime.getRuntime().exec(cmd, null, dir);
 		
