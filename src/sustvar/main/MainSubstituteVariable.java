@@ -65,12 +65,19 @@ public class MainSubstituteVariable implements Runnable {
 		
 		fileVarSubtitutor.run();
 		
-                if(params.getCmd()!=null && !params.getCmd().trim().isEmpty()) {
-                    CommandExecutor cmdExe = new CommandExecutor(params.getCmd(), elementToUse);
+		if(params.getCmd()!=null && !params.getCmd().trim().isEmpty()) {
+			CommandExecutor cmdExe = new CommandExecutor(params.getCmd(), elementToUse);
+
+			cmdExe.setShow(show);
+			cmdExe.run();
+		}
 		
-                    cmdExe.setShow(show);
-                    cmdExe.run();
-                }
+		if(params.getCmd2()!=null && !params.getCmd2().trim().isEmpty()) {
+			CommandExecutor cmdExe = new CommandExecutor(params.getCmd2(), elementToUse);
+
+			cmdExe.setShow(show);
+			cmdExe.run();
+		}
 	}
 
 	private File backupTarget(File target, boolean replaceBackup) throws Exception {
@@ -115,7 +122,8 @@ public class MainSubstituteVariable implements Runnable {
 					 						 () -> evaluateParam(StartParameters.PARAM_CONFIG_FILE, inputLower),
 											 () -> evaluateParam(StartParameters.PARAM_RECURSIVE, inputLower),
 											 () -> evaluateParam(StartParameters.PARAM_ONE_BACKUP, inputLower),
-											 () -> evaluateParam(StartParameters.PARAM_CMD, inputLower));
+											 () -> evaluateParam(StartParameters.PARAM_CMD, inputLower),
+											 () -> evaluateParam(StartParameters.PARAM_SECOND_CMD, inputLower));
 			
 			return Optional.ofNullable(result);
 		}));
@@ -147,6 +155,9 @@ public class MainSubstituteVariable implements Runnable {
 		});
 		consumeParam(paramsMapped, Optional.of(StartParameters.PARAM_CMD), (paramValue) -> {
 			paramObject.setCmd(paramValue);
+		});
+		consumeParam(paramsMapped, Optional.of(StartParameters.PARAM_SECOND_CMD), (paramValue) -> {
+			paramObject.setCmd2(paramValue);
 		});
 		
 		printParams(paramsMapped);
