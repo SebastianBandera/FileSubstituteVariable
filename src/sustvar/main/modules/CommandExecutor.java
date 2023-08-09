@@ -20,8 +20,14 @@ public class CommandExecutor {
 	private Consumer<String> show = (str) -> System.out.println(str);
 	
 	public CommandExecutor(String cmd, File dir) {
-		this.cmd = cmd;
-		this.dir = dir;
+            String parseCmdSpace = cmd;
+            
+            if (parseCmdSpace!=null) {
+                parseCmdSpace = parseCmdSpace.replace("_SPACE_", " ");
+            }
+            
+            this.cmd = parseCmdSpace;
+            this.dir = dir;
 	}
 
 	public void run() throws IOException {
