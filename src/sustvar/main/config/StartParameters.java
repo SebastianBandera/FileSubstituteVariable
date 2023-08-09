@@ -11,6 +11,7 @@ public class StartParameters {
 	public final static String PARAM_RECURSIVE = "recursive";
 	public final static String PARAM_ONE_BACKUP = "onebackup";
 	public final static String PARAM_CMD = "cmd";
+	public final static String PARAM_SECOND_CMD = "cmd2";
 	
 	//Required
 	private File target;
@@ -18,6 +19,7 @@ public class StartParameters {
 	
 	//Optional
 	private String cmd;
+	private String cmd2;
 	private boolean recursive;
 	private boolean oneBackup;
 	
@@ -25,6 +27,7 @@ public class StartParameters {
 		this.target = null;
 		this.recursive = false;
 		this.cmd = null;
+		this.cmd2 = null;
 	}
 	
 	public void validate() throws Exception {
@@ -58,6 +61,14 @@ public class StartParameters {
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
 	}
+
+        public String getCmd2() {
+            return cmd2;
+        }
+
+        public void setCmd2(String cmd2) {
+            this.cmd2 = cmd2;
+        }
 
 	public boolean isOneBackup() {
 		return oneBackup;
